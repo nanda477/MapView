@@ -10,7 +10,7 @@ import GoogleMaps
 class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var locationLabel: UILabel!
+  //  @IBOutlet weak var locationLabel: UILabel!
     
     let locationArray = [[
         "area_id" : "1",
@@ -65,6 +65,15 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
 
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace)
     {
+        // not checking just allowing location to display in map
+        mapView.clear()
+        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        let marker = GMSMarker(position: position)
+        marker.title = place.name
+        marker.map = mapView
+        self.mapView.animate(toLocation: position)
+        self.mapView.animate(toZoom: 20.0)
+        dismiss(animated: true, completion: nil)
         
         guard validateLocation(locName: place.name!) else {
             dismiss(animated: true, completion: nil)
@@ -75,20 +84,16 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         
         
         
-       self.locationLabel.text = place.formattedAddress
+       //self.locationLabel.text = place.formattedAddress
         
-        mapView.clear()
-        
-        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        let marker = GMSMarker(position: position)
-        marker.title = place.name
-    
-        marker.map = mapView
-
-        self.mapView.animate(toLocation: position)
-        self.mapView.animate(toZoom: 20.0)
-
-       dismiss(animated: true, completion: nil)
+//        mapView.clear()
+//        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+//        let marker = GMSMarker(position: position)
+//        marker.title = place.name
+//        marker.map = mapView
+//        self.mapView.animate(toLocation: position)
+//        self.mapView.animate(toZoom: 20.0)
+//       dismiss(animated: true, completion: nil)
         
     }
     

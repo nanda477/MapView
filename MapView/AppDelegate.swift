@@ -19,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        GMSPlacesClient.provideAPIKey("xxxxxxxxxxxx")// set your API key
-        GMSServices.provideAPIKey("xxxxxxxxxxxxxx") // set your API key
+         IQKeyboardManager.shared.enable = true
+        GMSPlacesClient.provideAPIKey("XXXXXXXXXX")// set your API key
+        GMSServices.provideAPIKey("XXXXXXXXXXXX") // set your API key
         
         return true
     }
