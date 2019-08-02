@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
   //  @IBOutlet weak var locationLabel: UILabel!
     
+    @IBOutlet weak var addressLabel: UILabel!
     var addressEntry = "G"// or // "M"
     
     let locationArray = [[
@@ -81,6 +82,7 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         let marker = GMSMarker(position: position)
         marker.title = place.name
+        addressLabel.text = place.formattedAddress
         marker.map = mapView
         self.mapView.animate(toLocation: position)
         self.mapView.animate(toZoom: 20.0)
@@ -188,7 +190,8 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
 
 extension ViewController: manualAddressDelegate {
     func manualAddressReturn(data: String) {
-        checkLOcationValidator(fromView: "M")
+        checkLOcationValidator(fromView: data)
+        addressLabel.text = "Address Entered in manullay will show here"
     }
 
 }

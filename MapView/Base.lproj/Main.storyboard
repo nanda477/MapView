@@ -39,7 +39,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zb2-02-kY5" customClass="GMSMapView">
-                                <rect key="frame" x="9" y="64" width="305" height="389"/>
+                                <rect key="frame" x="9" y="70" width="305" height="383"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vPU-uJ-tdf">
@@ -114,29 +114,39 @@
                                     <constraint firstAttribute="height" constant="30" id="Zh4-ST-w3k"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fi-i1-zrD">
+                                <rect key="frame" x="15" y="65" width="290" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Fi-i1-zrD" secondAttribute="trailing" constant="15" id="4Mj-Zr-rCm"/>
+                            <constraint firstItem="Zb2-02-kY5" firstAttribute="top" secondItem="7Fi-i1-zrD" secondAttribute="bottom" constant="5" id="50I-8Q-feR"/>
                             <constraint firstItem="vPU-uJ-tdf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="7Kg-L9-EFn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YaV-Cd-YpM" secondAttribute="trailing" id="Bc8-qU-08T"/>
                             <constraint firstItem="dps-fh-HRg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="Gwk-Fi-6ou"/>
                             <constraint firstItem="vPU-uJ-tdf" firstAttribute="top" secondItem="dps-fh-HRg" secondAttribute="bottom" constant="5" id="QgS-LV-Pd6"/>
                             <constraint firstItem="dps-fh-HRg" firstAttribute="top" secondItem="Zb2-02-kY5" secondAttribute="bottom" constant="10" id="VJS-Wh-Tye"/>
-                            <constraint firstItem="Zb2-02-kY5" firstAttribute="top" secondItem="Q1U-oe-eeu" secondAttribute="bottom" constant="7" id="Vqn-jQ-leg"/>
                             <constraint firstItem="Zb2-02-kY5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="Zse-lk-J2y"/>
                             <constraint firstItem="YaV-Cd-YpM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cDS-Bm-vZ3"/>
+                            <constraint firstItem="7Fi-i1-zrD" firstAttribute="top" secondItem="Q1U-oe-eeu" secondAttribute="bottom" constant="8" id="dXM-Qt-cl0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dps-fh-HRg" secondAttribute="trailing" constant="6" id="fsa-bD-saj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vPU-uJ-tdf" secondAttribute="trailing" constant="7" id="i1p-UY-VwK"/>
                             <constraint firstItem="YaV-Cd-YpM" firstAttribute="top" secondItem="vPU-uJ-tdf" secondAttribute="bottom" constant="10" id="low-hz-xD3"/>
                             <constraint firstItem="Q1U-oe-eeu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="nRO-XX-Wel"/>
                             <constraint firstItem="Q1U-oe-eeu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="7" id="rwh-zP-lbr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zb2-02-kY5" secondAttribute="trailing" constant="6" id="sHC-Es-C7x"/>
+                            <constraint firstItem="7Fi-i1-zrD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="wXs-ZG-0FA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YaV-Cd-YpM" secondAttribute="bottom" id="wcs-2S-dE9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Q1U-oe-eeu" secondAttribute="trailing" constant="7" id="yWg-BK-zfo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="7Fi-i1-zrD" id="xH9-Kn-1z8"/>
                         <outlet property="mapView" destination="Zb2-02-kY5" id="qw6-yf-71D"/>
                     </connections>
                 </viewController>
