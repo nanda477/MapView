@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		145580BE22F41423003671CC /* ManualAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145580BD22F41423003671CC /* ManualAddress.swift */; };
 		14719E7722F1C1A7001B69B7 /* IQTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14719E6122F1C1A7001B69B7 /* IQTextView.swift */; };
 		14719E7822F1C1A7001B69B7 /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14719E6322F1C1A7001B69B7 /* IQPreviousNextView.swift */; };
 		14719E7922F1C1A7001B69B7 /* IQTitleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14719E6422F1C1A7001B69B7 /* IQTitleBarButtonItem.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		145580BD22F41423003671CC /* ManualAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualAddress.swift; sourceTree = "<group>"; };
 		14719E6122F1C1A7001B69B7 /* IQTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTextView.swift; sourceTree = "<group>"; };
 		14719E6322F1C1A7001B69B7 /* IQPreviousNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQPreviousNextView.swift; sourceTree = "<group>"; };
 		14719E6422F1C1A7001B69B7 /* IQTitleBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IQTitleBarButtonItem.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				14719E5F22F1C1A7001B69B7 /* IQKeyboardManagerSwift */,
 				149F5C0A22EEBCA2009932E6 /* AppDelegate.swift */,
 				149F5C0C22EEBCA2009932E6 /* ViewController.swift */,
+				145580BD22F41423003671CC /* ManualAddress.swift */,
 				149F5C0E22EEBCA2009932E6 /* Main.storyboard */,
 				149F5C1122EEBCBC009932E6 /* Assets.xcassets */,
 				149F5C1322EEBCBC009932E6 /* LaunchScreen.storyboard */,
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14719E7A22F1C1A7001B69B7 /* IQBarButtonItem.swift in Sources */,
+				145580BE22F41423003671CC /* ManualAddress.swift in Sources */,
 				14719E7F22F1C1A7001B69B7 /* IQKeyboardManagerConstants.swift in Sources */,
 				14719E8122F1C1A7001B69B7 /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				14719E7B22F1C1A7001B69B7 /* IQToolbar.swift in Sources */,

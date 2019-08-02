@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
   //  @IBOutlet weak var locationLabel: UILabel!
     
+    var addressEntry = "G"// or // "M"
+    
     let locationArray = [[
         "area_id" : "1",
         "area_name" : "Kodambakkam",
@@ -43,12 +45,21 @@ class ViewController: UIViewController {
             "city_id" : "2",
             "city_name" : "Tiruchirappalli"
         ]]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
-
+    @IBAction func manualAddressAtion(_ sender: Any) {
+        
+        let mAddressView = storyboard?.instantiateViewController(withIdentifier: "ManualAddress_ID") as! ManualAddress
+        mAddressView.mDelegate = self
+        let mANav = UINavigationController(rootViewController: mAddressView)
+        self.present(mANav, animated: true, completion: nil)
+    }
+    
     @IBAction func addressAction(_ sender: Any) {
         
         let autocompleteController = GMSAutocompleteViewController()
@@ -75,25 +86,16 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         self.mapView.animate(toZoom: 20.0)
         dismiss(animated: true, completion: nil)
         
+        // check your logic here
+        checkLOcationValidator(fromView: "G")
+        
         guard validateLocation(locName: place.name!) else {
             dismiss(animated: true, completion: nil)
             print("Unable to delivery to this location, please select different location")
             self.showAlert(msg: "Unable to delivery to this location, please select different location")
             return
         }
-        
-        
-        
-       //self.locationLabel.text = place.formattedAddress
-        
-//        mapView.clear()
-//        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-//        let marker = GMSMarker(position: position)
-//        marker.title = place.name
-//        marker.map = mapView
-//        self.mapView.animate(toLocation: position)
-//        self.mapView.animate(toZoom: 20.0)
-//       dismiss(animated: true, completion: nil)
+
         
     }
     
@@ -151,6 +153,44 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
         self.present(alert, animated: true, completion: nil)
         
     }
+    
+    
+    func checkLOcationValidator(fromView: String) {
+        //addressEntry = "G" && fromview = "G"
+        // addressEntry is "G"
+        if addressEntry == "G" {
+            
+            if addressEntry == fromView {
+                // TODO: your logic here
+                print("User Also selected address from Google")
+            }else{
+                // TODO: your logic here
+                print("User selected address from Manual")
+            }
+            
+        }// addressEntry is "M"
+        else{
+            
+            if addressEntry == fromView {
+                // TODO: your logic here
+                print("User Also selected address from Manual")
+            }else{
+                // TODO: your logic here
+                print("User selected address from Google")
+            }
+            
+            
+        }
+        
+        
+    }
+}
+
+extension ViewController: manualAddressDelegate {
+    func manualAddressReturn(data: String) {
+        checkLOcationValidator(fromView: "M")
+    }
+
 }
 
 
