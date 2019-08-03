@@ -77,12 +77,16 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
 
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace)
     {
+        // assign to label
+        
+        addressLabel.text = place.formattedAddress
+        
+        
         // not checking just allowing location to display in map
         mapView.clear()
         let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         let marker = GMSMarker(position: position)
         marker.title = place.name
-        addressLabel.text = place.formattedAddress
         marker.map = mapView
         self.mapView.animate(toLocation: position)
         self.mapView.animate(toZoom: 20.0)
@@ -189,10 +193,40 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
 }
 
 extension ViewController: manualAddressDelegate {
-    func manualAddressReturn(data: String) {
+    func manualAddressReturn(data: String, name: String, street: String, city: String, state: String, pincode: String) {
         checkLOcationValidator(fromView: data)
-        addressLabel.text = "Address Entered in manullay will show here"
+        
+        
+        // 1 method
+        //addressLabel.text = "Name: \(name)\n" + "Street: \(street)\n" + "City: \(city)\n" + "State: \(state)\n" + "Pincode: \(pincode)\n"
+        
+        //2 method
+        //addressLabel.text = "\(name),\(street),\(city),\(state),\(pincode)".trimmingCharacters(in: .init(charactersIn: ","))
+        
+        //3 mehood
+        
+        //addressLabel.text = "\(name),\(street),\(city),\(state),\(pincode)".replacingOccurrences(of: ",,,,", with: ",").replacingOccurrences(of: ",,,", with: ",").replacingOccurrences(of: ",,", with: ",").trimmingCharacters(in: .init(charactersIn: ","))
+        
+            
+        // 4 method
+//        let nameS = name != "" ? (name + ",") : ""
+//        let streetS = street != "" ? (street + ",") : ""
+//        let cityS = city != "" ? (city + ",") : ""
+//        let stateS = state != "" ? (state + ",") : ""
+//        let pincode = pincode != "" ? (pincode + ",") : ""
+//        addressLabel.text = nameS + streetS + cityS + stateS + pincode
+        
+        // method 5
+        
+        let nameS = name
+        let streetS = street != "" ? ("," + street) : ""
+        let cityS = city != "" ? ( "," + city) : ""
+        let stateS = state != "" ? ("," + state) : ""
+        let pincode = pincode != "" ? ("," + pincode) : ""
+        addressLabel.text = nameS + streetS + cityS + stateS + pincode
+        
     }
+
 
 }
 

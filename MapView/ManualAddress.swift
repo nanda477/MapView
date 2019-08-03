@@ -10,10 +10,17 @@ import UIKit
 
 protocol manualAddressDelegate {
     
-    func manualAddressReturn(data: String)// what ever you want u can pass here to viewcontroller
+    func manualAddressReturn(data: String, name: String, street: String, city: String, state: String, pincode: String)// what ever you want u can pass here to viewcontroller
 }
 
 class ManualAddress: UIViewController {
+    
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var stTF: UITextField!
+    @IBOutlet weak var cityTF: UITextField!
+    @IBOutlet weak var stateTF: UITextField!
+    @IBOutlet weak var pincodeTF: UITextField!
+    
     
     var mDelegate: manualAddressDelegate?
 
@@ -26,9 +33,19 @@ class ManualAddress: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    
     @objc func closeVC() {
-        self.mDelegate?.manualAddressReturn(data: "M")
+        loadData()
         self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func submitAction(_ sender: Any) {
+        loadData()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func loadData() {
+        self.mDelegate?.manualAddressReturn(data: "M", name: nameTF.text!, street: stTF.text!, city: cityTF.text!, state: stateTF.text!, pincode: pincodeTF.text!)
     }
     
 
