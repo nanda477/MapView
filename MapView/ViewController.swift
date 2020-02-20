@@ -48,9 +48,24 @@ class ViewController: UIViewController {
         ]]
     
     
+    var marker = GMSMarker()
+    var SourceLat = 12.9716
+    var SourceLong = 77.5946
+    var rectagle = GMSPolyline()
+    //var snackBar: MJSnackBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let camara: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: SourceLat, longitude: SourceLong, zoom: 12.0)
+        
+        mapView.camera = camara
+        
+        let position = CLLocationCoordinate2DMake(SourceLat, SourceLong)
+        self.marker = GMSMarker(position: position)
+        self.marker.icon = GMSMarker.markerImage(with: .green)
+        
+        self.marker.map = self.mapView
     }
 
     @IBAction func manualAddressAtion(_ sender: Any) {
@@ -79,29 +94,107 @@ extension ViewController: GMSAutocompleteViewControllerDelegate {
     {
         // assign to label
         
-        addressLabel.text = place.formattedAddress
+//        addressLabel.text = place.formattedAddress
+//
+//
+//        // not checking just allowing location to display in map
+//        mapView.clear()
+//        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+//        let marker = GMSMarker(position: position)
+//        marker.title = place.name
+//        marker.map = mapView
+//        self.mapView.animate(toLocation: position)
+//        self.mapView.animate(toZoom: 20.0)
+//        dismiss(animated: true, completion: nil)
+//
+//        // check your logic here
+//        checkLOcationValidator(fromView: "G")
+//
+//        guard validateLocation(locName: place.name!) else {
+//            dismiss(animated: true, completion: nil)
+//            print("Unable to delivery to this location, please select different location")
+//            self.showAlert(msg: "Unable to delivery to this location, please select different location")
+//            return
+//        }
         
-        
-        // not checking just allowing location to display in map
-        mapView.clear()
-        let position = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        let marker = GMSMarker(position: position)
-        marker.title = place.name
-        marker.map = mapView
-        self.mapView.animate(toLocation: position)
-        self.mapView.animate(toZoom: 20.0)
-        dismiss(animated: true, completion: nil)
-        
-        // check your logic here
-        checkLOcationValidator(fromView: "G")
-        
-        guard validateLocation(locName: place.name!) else {
-            dismiss(animated: true, completion: nil)
-            print("Unable to delivery to this location, please select different location")
-            self.showAlert(msg: "Unable to delivery to this location, please select different location")
-            return
-        }
+        self.dismiss(animated: true) {
+            let position = place.coordinate
+               self.marker = GMSMarker(position: position)
+               self.marker.title = place.name
+               self.marker.map = self.mapView
+               
+               let camaras: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 12.0)
+               
+            self.mapView.camera = camaras
+               
+               
+            //   let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(SourceLat),\(SourceLong)&destination=\(place.coordinate.latitude),\(place.coordinate.longitude)&sensor=false"
+               
+               let urlString = "https://maps.googleapis.com/maps/api/directions/json?" +
+                "origin=\(self.SourceLat),\(self.SourceLong)&destination=\(place.coordinate.latitude),\(place.coordinate.longitude)&" +
+               "key=XXXXXXXXXXXXX"
 
+               guard let url = URL(string: urlString) else {
+                   return
+               }
+               
+               let urlReqest = URLRequest(url: url)
+               
+               let config = URLSessionConfiguration.default
+               let session = URLSession(configuration: config)
+               
+               session.dataTask(with: urlReqest) { (mData, mResponse, mError) in
+                   
+                   do{
+                       guard let data = mData else{
+                           return
+                       }
+                       
+                       guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary else{
+                           return
+                       }
+                       
+                       let arrayRoutes = json["routes"] as? NSArray ?? []
+                       let arrLegs = (arrayRoutes[0] as? NSDictionary ?? [:]).object(forKey: "legs") as! NSArray
+                       let arrSteps = arrLegs[0] as? NSDictionary ?? [:]
+                       
+                       let dicDistance = arrSteps["distance"] as! NSDictionary
+                       let distance = dicDistance["text"] as! String
+                       
+                       let dicDuration = arrSteps["duration"] as! NSDictionary
+                       let duration = dicDuration["text"] as! String
+                       
+                       DispatchQueue.global(qos: .background).async {
+                           
+                           let array = json["routes"] as? NSArray ?? []
+                           let dic = array[0] as? NSDictionary ?? [:]
+                           let dic1 = dic["overview_polyline"] as? NSDictionary ?? [:]
+                           let points = dic1["points"] as? String ?? ""
+                           
+                           
+                           
+                           DispatchQueue.main.async {
+                               
+                               let path = GMSPath(fromEncodedPath: points)
+                               self.rectagle.map = nil
+                               self.rectagle = GMSPolyline(path: path)
+                               self.rectagle.strokeWidth = 4
+                               self.rectagle.strokeColor = .blue
+                               self.rectagle.map = self.mapView
+                           
+                               
+                           }
+                       }
+                       
+                       
+                       
+                       
+                   }catch{
+                       print("Error")
+                   }
+               }.resume()
+        }
+        
         
     }
     
